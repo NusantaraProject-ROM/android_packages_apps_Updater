@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <permissions>
-    <privapp-permissions package="org.pixelexperience.ota">
+    <privapp-permissions package="org.nad.ota">
         <permission name="android.permission.ACCESS_CACHE_FILESYSTEM"/>
         <permission name="android.permission.REBOOT"/>
         <permission name="android.permission.RECOVERY"/>
