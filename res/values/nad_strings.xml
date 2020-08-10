@@ -125,7 +125,7 @@
     <string name="developer_info_title">Lead Developer</string>
     <string name="maintainer_info_title">Device Maintainer</string>
     <string name="donate_info_title">Donate to the developer</string>
-    <string name="donate_info_summary">Support ancient\'s development</string>
+    <string name="donate_info_summary">Support our\'s development</string>
     <string name="support_info_title">Donate to the device maintainer</string>
     <string name="support_info_summary">Support your device maintainer\'s work</string>
     <string name="website_info_title">Website</string>
