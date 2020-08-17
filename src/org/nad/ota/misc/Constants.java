@@ -37,7 +37,7 @@ public final class Constants {
     static final int AUTO_UPDATES_CHECK_INTERVAL_MONTHLY = 3;
     static final String PROP_AB_DEVICE = "ro.build.ab_update";
     static final String PROP_DEVICE = "ro.nad.device";
-    static final String PROP_BUILD_VERSION = "ro.nad.version";
+    static final String PROP_BUILD_VERSION = "ro.nad";
     static final String PROP_VERSION_CODE = "ro.nad.ota.version_code";
     static final String OTA_URL = "https://raw.githubusercontent.com/Nusantara-ROM/official_devices/master/%s.json";
     static final String DOWNLOAD_WEBPAGE_URL = "https://raw.githubusercontent.com/Nusantara-ROM/official_devices/master/%s.md";
