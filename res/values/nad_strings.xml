@@ -77,8 +77,7 @@
     <string name="resume_button">Resume</string>
     <string name="suspend_button">Suspend</string>
     <string name="reboot">Reboot</string>
-    <string name="details_button">Changelog</string>
-    <string name="changelog_fail">Failed to retrieve changelog</string>
+    <string name="details_button">View details</string>
 
     <!-- Installation -->
     <string name="apply_update_dialog_title">Apply update</string>
@@ -135,5 +134,4 @@
     <string name="forum_info_title">XDA Thread</string>
     <string name="forum_info_summary">View forum posts</string>
     <string name="error_open_url">Failed to open URL in browser</string>
-    <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/Nusantara-ROM/official_devices/master/<xliff:g id="device_name">%1$s</xliff:g>.md</string>
 </resources>

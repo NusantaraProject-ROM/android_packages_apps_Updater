@@ -23,7 +23,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -57,11 +56,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -160,7 +156,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         viewHolder.mProgressBar.setVisibility(View.VISIBLE);
         viewHolder.mProgressText.setVisibility(View.VISIBLE);
         viewHolder.mBuildSize.setVisibility(View.INVISIBLE);
-        setButtonAction(viewHolder.mDetails, Action.CHANGELOG, downloadId, true);
     }
 
     private void handleNotActiveStatus(ViewHolder viewHolder, UpdateInfo update) {
@@ -195,7 +190,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         viewHolder.mProgressText.setVisibility(View.INVISIBLE);
         viewHolder.mBuildSize.setVisibility(View.VISIBLE);
         viewHolder.mBuildName.setSelected(true);
-        setButtonAction(viewHolder.mDetails, Action.CHANGELOG, downloadId, true);
     }
 
     @Override
@@ -392,10 +386,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 } : null;
             }
             break;
-            case CHANGELOG: {
-                clickListener = enabled ? view -> new getChangelogDialog().execute(Utils.getChangelogURL(view.getContext())) : null;
-            }
-            break;
             default:
                 clickListener = null;
                 button.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -572,7 +562,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         DELETE,
         CANCEL_INSTALLATION,
         REBOOT,
-        CHANGELOG,
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -589,7 +578,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         ViewHolder(final View view) {
             super(view);
             mAction = view.findViewById(R.id.update_action);
-            mDetails = view.findViewById(R.id.changelog_action);
+            mDetails = view.findViewById(R.id.details_action);
 
             mBuildDate = view.findViewById(R.id.build_date);
             mBuildName = view.findViewById(R.id.build_name);
@@ -597,46 +586,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
 
             mProgressBar = view.findViewById(R.id.progress_bar);
             mProgressText = view.findViewById(R.id.progress_text);
-        }
-    }
-
-    private class getChangelogDialog extends AsyncTask<String, Void, String> {
-
-        protected String doInBackground(String... strings) {
-            String outputString = "";
-            String inputString;
-            int i = 0;
-
-            try {
-                URL changelog = new URL(strings[0]);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(
-                        changelog.openStream()));
-
-                while((inputString = in.readLine()) != null) {
-                    // don't include the top 4 lines of the changelog
-                    if (i >= 4) {
-                        outputString += inputString + "\n";
-                    }
-                    i++;
-                }
-
-                in.close();
-                return outputString;
-            } catch(IOException e) {
-                Log.e(TAG, "Could not fetch changelog from " + strings[0]);
-                return mActivity.getResources().getString(R.string.changelog_fail);
-            }
-        }
-
-        protected void onPostExecute(String result) {
-            AlertDialog dialog = new AlertDialog.Builder(mActivity)
-                    .setTitle(R.string.details_button)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .setMessage(result)
-                    .show();
-            TextView textView = (TextView) dialog.findViewById(android.R.id.message);
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 }
